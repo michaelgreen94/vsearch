@@ -1,18 +1,34 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="home container">
+    <h3>Searching for {{movieName}}</h3>
+    <form @submit.prevent="search">
+      <input type="text" v-model="movieName">
+    </form>
+    <div class="row">
+      <Results class="col" />
+      <Details class="col" />
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
-export default {
-  name: 'home',
-  components: {
-    HelloWorld
-  }
-}
+  import Results from "@/components/Results";
+  import Details from "@/components/Details";
+  export default {
+    name: "home",
+    data() {
+      return {
+        movieName: ""
+      };
+    },
+    methods: {
+      search() {
+        this.$store.dispatch("search", this.movieName);
+      }
+    },
+    components: {
+      Results,
+      Details
+    }
+  };
 </script>
